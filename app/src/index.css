@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0b0a08;
+  --color-panel: #14120e;
+  --color-panel2: #1c1913;
+  --color-line: #2e2a20;
+  --color-gold: #e8b94a;
+  --color-gold-dim: #8a6d2b;
+  --color-parchment: #ece4d0;
+  --color-muted: #8b8371;
+  --color-alive: #4ade80;
+  --color-warn: #f87171;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-mono: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+}
+
+html, body, #root { height: 100%; }
+
+body {
+  background: var(--color-ink);
+  color: var(--color-parchment);
+  font-family: var(--font-display);
+}
+
+.font-mono { font-family: var(--font-mono); }
+
+::selection { background: var(--color-gold); color: var(--color-ink); }

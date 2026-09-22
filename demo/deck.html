@@ -1,0 +1,176 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; }
+  .slide { width:1920px; height:1080px; background:#0b0a08; color:#ece4d0; padding:90px 120px;
+           display:flex; flex-direction:column; justify-content:center; position:relative; overflow:hidden;
+           page-break-after:always; }
+  .mono { font-family:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace; }
+  .gold { color:#e8b94a; }
+  .muted { color:#8b8371; }
+  .kicker { font-family:"SF Mono",Menlo,monospace; font-size:22px; letter-spacing:.35em; text-transform:uppercase; color:#8a6d2b; margin-bottom:28px; }
+  h1 { font-size:130px; font-weight:700; letter-spacing:-.01em; line-height:1.02; }
+  h2 { font-size:80px; font-weight:700; line-height:1.06; }
+  .rule { width:120px; height:2px; background:#e8b94a; margin:40px 0; }
+  .glow { position:absolute; width:900px; height:900px; border-radius:50%; right:-300px; top:-300px;
+          background:radial-gradient(circle,rgba(232,185,74,.09),transparent 60%); }
+  .stat { font-size:150px; font-weight:700; color:#e8b94a; line-height:1; }
+  .steps { display:flex; align-items:center; gap:0; margin-top:20px; }
+  .step { border:1px solid #2e2a20; background:#14120e; border-radius:14px; padding:34px 38px; min-width:265px; }
+  .step .t { font-size:34px; font-weight:700; margin-bottom:8px; }
+  .step .d { font-family:"SF Mono",Menlo,monospace; font-size:19px; color:#8b8371; line-height:1.5; }
+  .arrow { color:#8a6d2b; font-size:44px; padding:0 18px; }
+  table { border-collapse:collapse; width:100%; font-size:27px; }
+  th { font-family:"SF Mono",Menlo,monospace; font-size:20px; letter-spacing:.15em; text-transform:uppercase; color:#8b8371;
+       text-align:left; padding:16px 22px; border-bottom:2px solid #2e2a20; }
+  td { padding:16px 22px; border-bottom:1px solid #2e2a20; }
+  td.mono { font-size:24px; }
+  .yes { color:#4ade80; } .no { color:#f87171; }
+  .pill { display:inline-block; border:1px solid #2e2a20; border-radius:999px; padding:10px 26px; margin:0 12px 12px 0;
+          font-family:"SF Mono",Menlo,monospace; font-size:23px; color:#ece4d0; }
+  .pill.g { border-color:#e8b94a; color:#e8b94a; }
+  .feat { display:flex; gap:18px; margin:0 0 30px 0; align-items:baseline; }
+  .feat .n { font-family:"SF Mono",Menlo,monospace; color:#e8b94a; font-size:26px; min-width:52px; }
+  .feat .b { font-size:31px; line-height:1.3; }
+  .feat .b em { color:#8b8371; font-style:normal; font-size:26px; }
+  .cols { display:flex; gap:60px; }
+  .cols > div { flex:1; }
+  .roadmap { border-left:2px solid #2e2a20; padding-left:34px; }
+  .roadmap .r { margin-bottom:30px; }
+  .roadmap .rt { font-family:"SF Mono",Menlo,monospace; font-size:20px; color:#8a6d2b; letter-spacing:.2em; text-transform:uppercase; margin-bottom:6px; }
+  .roadmap .rb { font-size:29px; line-height:1.3; }
+  @page { size:1920px 1080px; margin:0; }
+  @media print { body { -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
+</style></head><body>
+
+<!-- 1 · cover -->
+<div class="slide">
+  <div class="glow"></div>
+  <div class="kicker">3rd-Web-Hack · TechZap Club</div>
+  <h1>Ethernal <span class="gold">◆</span></h1>
+  <div class="rule"></div>
+  <p style="font-size:44px; font-style:italic;">Your keys die with you.<br/>Your crypto doesn't have to.</p>
+  <p class="mono muted" style="font-size:22px; margin-top:60px;">non-custodial on-chain inheritance · Ethereum / any EVM · MIT</p>
+</div>
+
+<!-- 2 · problem -->
+<div class="slide">
+  <div class="kicker">The problem</div>
+  <div class="stat">$140B+</div>
+  <p style="font-size:40px; margin-top:26px; max-width:1450px; line-height:1.35;">
+    of crypto sits in wallets whose owners are dead or unreachable.
+    <span class="muted">Self-custody has no "forgot password", no executor, no inheritance path.</span>
+  </p>
+  <div style="margin-top:56px;">
+    <span class="pill">exchanges = custodial</span>
+    <span class="pill">paper wills leak keys</span>
+    <span class="pill">multisig needs fluent heirs</span>
+    <span class="pill">existing tools charge rent</span>
+  </div>
+</div>
+
+<!-- 3 · solution -->
+<div class="slide">
+  <div class="kicker">The solution</div>
+  <h2 style="margin-bottom:54px;">A dead man's switch<br/>that can be <span class="gold">contested</span></h2>
+  <div class="steps">
+    <div class="step"><div class="t">Seal</div><div class="d">owner funds vault<br/>heirs + shares set</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="t">Heartbeat</div><div class="d">every owner action<br/>proves liveness</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="t">Lapse</div><div class="d">silence lets heirs<br/>file a claim</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="t">Challenge</div><div class="d">owner cancels ·<br/>guardian can veto</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="t gold">Inherit</div><div class="d">heirs pull shares<br/>+ letters + NFTs</div></div>
+  </div>
+  <p class="mono muted" style="font-size:21px; margin-top:48px;">no token · no oracle · no admin key · no subscription — one auditable contract</p>
+</div>
+
+<!-- 4 · innovation -->
+<div class="slide">
+  <div class="kicker">What's new</div>
+  <div class="cols">
+    <div>
+      <div class="feat"><div class="n">01</div><div class="b">Sealed heirs <em>— heirs are keccak commitments, not addresses. Nobody can see or target them. A physical claim card is the only key.</em></div></div>
+      <div class="feat"><div class="n">02</div><div class="b">Guardian veto <em>— an optional watchdog can cancel a premature claim. They can never touch funds; the contract forbids it.</em></div></div>
+      <div class="feat"><div class="n">03</div><div class="b">Every action is a heartbeat <em>— depositing, editing heirs, sealing a letter all reset the timer. No ritual check-ins.</em></div></div>
+    </div>
+    <div>
+      <div class="feat"><div class="n">04</div><div class="b">Specific NFT bequests <em>— "my Azuki goes to Alice", enforced on-chain, independent of percentage splits.</em></div></div>
+      <div class="feat"><div class="n">05</div><div class="b">Sealed letters <em>— AES-256 encrypted in the browser, ciphertext on-chain, passphrase whispered off-chain. Last words survive.</em></div></div>
+      <div class="feat"><div class="n">06</div><div class="b">Pull-based payouts <em>— heirs withdraw their own shares; shares are computed on frozen balances, so late claims can't dilute early ones.</em></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 5 · vs incumbents -->
+<div class="slide">
+  <div class="kicker">vs. incumbents</div>
+  <table>
+    <tr><th></th><th>custody</th><th>cost</th><th>heir privacy</th><th>per-asset wills</th></tr>
+    <tr><td class="mono gold">Ethernal</td><td class="yes">none — contract</td><td class="yes">free, MIT</td><td class="yes">sealed heirs</td><td class="yes">yes, per-heir NFT</td></tr>
+    <tr><td class="mono muted">Casa</td><td class="no">3-key + Casa key</td><td class="no">~$250/yr</td><td class="no">no</td><td class="no">BTC only</td></tr>
+    <tr><td class="mono muted">Liana</td><td class="yes">timelock</td><td class="yes">free</td><td class="no">no</td><td class="no">BTC only</td></tr>
+    <tr><td class="mono muted">Sarcophagus</td><td class="yes">node network</td><td class="no">ETH+SARCO</td><td class="yes">yes</td><td class="no">payload only</td></tr>
+    <tr><td class="mono muted">Inheriti</td><td class="no">closed/patented</td><td class="no">paid plans</td><td class="yes">shares</td><td class="no">no</td></tr>
+  </table>
+  <p class="mono muted" style="font-size:20px; margin-top:34px;">every competitor is custodial, paid, bitcoin-only, or needs a token. Ethernal is none of those.</p>
+</div>
+
+<!-- 6 · built & proven -->
+<div class="slide">
+  <div class="kicker">Built &amp; proven</div>
+  <h2 style="margin-bottom:44px;">Not a concept.<br/><span class="gold">A running system.</span></h2>
+  <div class="cols">
+    <div class="mono" style="font-size:24px; line-height:2.1; color:#8b8371;">
+      <div><span class="gold">▸</span> Solidity 0.8.24 — single contract, zero deps</div>
+      <div><span class="gold">▸</span> checks-effects-interactions · custom errors · events</div>
+      <div><span class="gold">▸</span> React + ethers v6 frontend — owner / heir / guardian portals</div>
+      <div><span class="gold">▸</span> AES-256-GCM letters via WebCrypto — client-side only</div>
+    </div>
+    <div class="mono" style="font-size:24px; line-height:2.1; color:#8b8371;">
+      <div><span class="yes">✓</span> 14 contract tests — full lifecycle + edge cases</div>
+      <div><span class="yes">✓</span> 21 headless-browser E2E checks — every button clicked</div>
+      <div><span class="yes">✓</span> full demo flow recorded end-to-end</div>
+      <div><span class="yes">✓</span> MIT · public repo · one-command local setup</div>
+    </div>
+  </div>
+</div>
+
+<!-- 7 · impact + future -->
+<div class="slide">
+  <div class="kicker">Impact &amp; future scope</div>
+  <div class="cols">
+    <div>
+      <h2 style="font-size:56px; margin-bottom:30px;">Who it's for</h2>
+      <p style="font-size:30px; line-height:1.5; color:#8b8371;">
+        Every long-term self-custody holder is a single accident away from burning their family's savings.
+        Ethernal turns "telling your heirs the seed phrase" — today's only option, and a terrible one —
+        into an enforceable on-chain will. Same primitive extends to DAO treasuries, founder key
+        succession, and multisig disaster recovery.
+      </p>
+    </div>
+    <div>
+      <div class="roadmap">
+        <div class="r"><div class="rt">now — hackathon</div><div class="rb">full lifecycle on EVM, sealed heirs, guardian veto, NFT bequests, letters</div></div>
+        <div class="r"><div class="rt">next</div><div class="rb">Sepolia + L2 deploys · claim-card PDF export · email/Telegram lapse alerts</div></div>
+        <div class="r"><div class="rt">later</div><div class="rb">ERC-4337 session heartbeats · fiat-abstracted gas · estate bundles (multi-vault)</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 8 · end -->
+<div class="slide">
+  <div class="glow"></div>
+  <div class="kicker">Ethernal</div>
+  <h2>Seal → heartbeat → lapse →<br/>challenge → <span class="gold">inherit</span></h2>
+  <div class="rule"></div>
+  <p class="mono muted" style="font-size:24px; line-height:1.9;">
+    MIT licensed · single auditable contract · live demo + full source in the repo<br/>
+    demo video: demo/out/demo.mp4 · built for 3rd-Web-Hack
+  </p>
+</div>
+
+</body></html>
