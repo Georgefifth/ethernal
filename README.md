@@ -54,6 +54,10 @@ assets    action =      detected  owner/guardian shares +
 | Crypto | WebCrypto AES-GCM-256, PBKDF2 (100k iters) for sealed letters |
 | Chain | Any EVM — local Hardhat node for dev/demo, Sepolia-ready |
 
+## Live preview
+
+**https://georgefifth.github.io/ethernal/** — the frontend hosted on GitHub Pages. The live build connects per-chain: MetaMask on a supported network, or the built-in demo accounts against your own local Hardhat node (the full experience is the 2-minute local demo below — the Pages site alone can't reach your node).
+
 ## Quickstart
 
 ```bash
