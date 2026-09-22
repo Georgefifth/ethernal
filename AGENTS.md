@@ -97,7 +97,7 @@ Lessons absorbed: challenge window ≈ Casa/Vault12 veto; auto-heartbeat ≈ Lia
 - [x] E2E verified — `scripts/e2e-demo.js` covers sealed heirs/NFT/veto/auto-heartbeat; `demo/e2e-ui.js` = full Firefox UI lifecycle (21 checks + screenshots in `demo/shots/`)
 - [x] README + SUBMISSION.md + demo script (`demo/DEMO_SCRIPT.md`)
 - [x] Demo video recorded — `demo/scenes.js` (18 scenes: cards + live UI session) → `demo/out/demo.mp4` (~5 min, TTS VO + captions + focus zoom). Re-record: fresh `hardhat node` + `deploy:local` (scenes expect Vault #0), `npm run dev`, then `node ~/tools/demo-recorder/record-demo.js demo/scenes.js --out=demo/out`
-- [x] GitHub Pages live preview — https://georgefifth.github.io/ethernal/ (gh-pages branch,  build; contract.json is a per-chain deployments map so one build serves local + testnet)
+- [x] GitHub Pages live preview — https://georgefifth.github.io/ethernal/ (gh-pages branch, relative-base build; contract.json is a per-chain deployments map so one build serves local + testnet)
 - [ ] Optional: Sepolia deploy (needs funded key in contracts/.env)
 - [x] Pitch deck — `demo/deck.html` (8 slides: problem/solution/innovation/vs incumbents/proof/impact+roadmap/end) → `demo/Ethernal-deck.pdf` (re-export: playwright chromium → `page.pdf`, 1920×1080 pages)
 - [ ] Devpost submission (deadline Sep 27 12:30 IST) — needs: repo link, `demo/out/demo.mp4`, `demo/Ethernal-deck.pdf`, SUBMISSION.md copy
