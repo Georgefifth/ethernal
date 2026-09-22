@@ -23,15 +23,19 @@ async function main() {
     console.log(`MockToken: ${tokenAddress}  MockNFT: ${nftAddress}`);
   }
 
-  const out = {
+  const chainId = Number(network.config.chainId ?? (await ethers.provider.getNetwork()).chainId);
+  const dest = path.join(__dirname, "..", "..", "app", "src", "contract.json");
+  let out = { abi: JSON.parse(Ethernal.interface.formatJson()), deployments: {} };
+  if (fs.existsSync(dest)) {
+    const prev = JSON.parse(fs.readFileSync(dest, "utf8"));
+    out.deployments = prev.deployments ?? {};
+  }
+  out.deployments[chainId] = {
     address: ethernal.target ?? address,
     tokenAddress,
     nftAddress,
-    chainId: Number(network.config.chainId ?? (await ethers.provider.getNetwork()).chainId),
     network: network.name,
-    abi: JSON.parse(Ethernal.interface.formatJson()),
   };
-  const dest = path.join(__dirname, "..", "..", "app", "src", "contract.json");
   fs.mkdirSync(path.dirname(dest), { recursive: true });
   fs.writeFileSync(dest, JSON.stringify(out, null, 2));
   console.log(`ABI + address written to ${dest}`);

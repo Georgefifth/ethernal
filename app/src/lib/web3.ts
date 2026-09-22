@@ -1,14 +1,19 @@
 import { BrowserProvider, Contract, JsonRpcProvider, NonceManager, Wallet, type Signer } from "ethers";
 import deployment from "../contract.json";
 
-export const DEPLOYMENT = deployment as {
+export interface DeploymentEntry {
   address: string;
-  tokenAddress: string;
+  tokenAddress?: string;
   nftAddress?: string;
-  chainId: number;
   network: string;
-  abi: unknown[];
-};
+}
+
+const DEPLOYMENTS = (deployment as { abi: unknown[]; deployments: Record<string, DeploymentEntry> }).deployments;
+const ABI = (deployment as { abi: unknown[] }).abi as string[];
+
+export function deploymentFor(chainId: number): DeploymentEntry | null {
+  return DEPLOYMENTS[String(chainId)] ?? null;
+}
 
 export const STATUS = ["Active", "Lapsed", "Challenged", "Claimable", "Drained"] as const;
 
@@ -30,8 +35,10 @@ export interface Conn {
   isLocal: boolean;
 }
 
-export function contractWith(signer: Signer) {
-  return new Contract(DEPLOYMENT.address, DEPLOYMENT.abi as string[], signer);
+export function contractWith(signer: Signer, chainId: number) {
+  const dep = deploymentFor(chainId);
+  if (!dep?.address) throw new Error(`No Ethernal deployment on chain ${chainId} — try a local Hardhat node.`);
+  return new Contract(dep.address, ABI, signer);
 }
 
 export async function connectMetaMask(): Promise<Conn> {
@@ -41,12 +48,13 @@ export async function connectMetaMask(): Promise<Conn> {
   const provider = new BrowserProvider(eth as never);
   const signer = await provider.getSigner();
   const net = await provider.getNetwork();
+  const chainId = Number(net.chainId);
   return {
     signer,
     address: await signer.getAddress(),
-    chainId: Number(net.chainId),
-    contract: contractWith(signer),
-    isLocal: Number(net.chainId) === 31337,
+    chainId,
+    contract: contractWith(signer, chainId),
+    isLocal: chainId === 31337,
   };
 }
 
@@ -56,11 +64,12 @@ export async function connectLocal(index: number): Promise<Conn> {
   // a local counter keeps back-to-back txs (mint→approve→deposit) consistent.
   const signer = new NonceManager(new Wallet(LOCAL_KEYS[index], provider));
   const net = await provider.getNetwork();
+  const chainId = Number(net.chainId);
   return {
     signer,
     address: await signer.getAddress(),
-    chainId: Number(net.chainId),
-    contract: contractWith(signer),
+    chainId,
+    contract: contractWith(signer, chainId),
     isLocal: true,
   };
 }

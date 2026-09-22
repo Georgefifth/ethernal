@@ -4,7 +4,7 @@ import { Landing } from "./components/Landing";
 import { OwnerPanel } from "./components/OwnerPanel";
 import { HeirPanel } from "./components/HeirPanel";
 import { GuardianPanel } from "./components/GuardianPanel";
-import { connectLocal, connectMetaMask, DEPLOYMENT, LOCAL_KEYS, type Conn } from "./lib/web3";
+import { connectLocal, connectMetaMask, deploymentFor, LOCAL_KEYS, type Conn } from "./lib/web3";
 import { shortAddr } from "./lib/utils";
 
 export default function App() {
@@ -68,8 +68,8 @@ export default function App() {
             <Btn onClick={() => connect(connectMetaMask)}>Connect MetaMask</Btn>
             <Btn variant="ghost" onClick={() => connect(() => connectLocal(0))}>Local demo</Btn>
           </div>
-          {!DEPLOYMENT.address && (
-            <p className="text-warn text-xs mt-6 font-mono">contract.json has no address — deploy first.</p>
+          {!deploymentFor(31337) && (
+            <p className="text-warn text-xs mt-6 font-mono">contract.json has no deployments — run npm run deploy:local in contracts/.</p>
           )}
         </div>
       ) : (

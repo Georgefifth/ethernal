@@ -7,7 +7,7 @@ import {
   useOwnedIds, useVaults, randomSalt, saveSalts, loadSalts, claimCard, heirKey, type VaultData,
 } from "../hooks/useVault";
 import { encryptLetter } from "../lib/letter";
-import { DEPLOYMENT } from "../lib/web3";
+import { deploymentFor } from "../lib/web3";
 
 const HEARTBEAT_PRESETS = [
   { label: "2 min (demo)", secs: 120 },
@@ -202,6 +202,7 @@ function VaultCard({ contract, v, me, chainId, onAction }: { contract: Contract;
 
   const meta = STATUS_META[v.status];
   const salts = loadSalts(chainId, v.id);
+  const dep = deploymentFor(chainId);
   const saltFor = (addrOrKey: string) =>
     v.privateHeirs ? (salts.find((s) => s.heir.toLowerCase() === addrOrKey.toLowerCase())?.salt ?? "") : ZERO_SALT;
 
@@ -215,24 +216,24 @@ function VaultCard({ contract, v, me, chainId, onAction }: { contract: Contract;
   };
 
   const depositToken = async () => {
-    const erc20 = new Contract(DEPLOYMENT.tokenAddress, [
+    const erc20 = new Contract(dep!.tokenAddress!, [
       "function approve(address,uint256) returns (bool)",
       "function mint(address,uint256)",
     ], contract.runner!);
     const amt = BigInt(Math.floor(parseFloat(tokAmount) * 1e6));
     await (await erc20.mint(me, amt)).wait();
     await (await erc20.approve(await contract.getAddress(), amt)).wait();
-    return contract.depositToken(v.id, DEPLOYMENT.tokenAddress, amt);
+    return contract.depositToken(v.id, dep!.tokenAddress!, amt);
   };
 
   const bequest = async () => {
-    const nft = new Contract(DEPLOYMENT.nftAddress!, [
+    const nft = new Contract(dep!.nftAddress!, [
       "function mint(address) returns (uint256)",
       "function approve(address,uint256)",
     ], contract.runner!);
     await (await nft.mint(me)).wait();
     await (await nft.approve(await contract.getAddress(), BigInt(nftId))).wait();
-    return contract.bequeath721(v.id, DEPLOYMENT.nftAddress, BigInt(nftId), nftHeir, saltFor(nftHeir));
+    return contract.bequeath721(v.id, dep!.nftAddress!, BigInt(nftId), nftHeir, saltFor(nftHeir));
   };
 
   const sealLetter = async () => {
@@ -322,20 +323,20 @@ function VaultCard({ contract, v, me, chainId, onAction }: { contract: Contract;
           <Btn variant="ghost" disabled={!!busy || !amount || v.finalized}
             onClick={act("dep", () => contract.depositETH(v.id, { value: parseEther(amount) }))}>Deposit</Btn>
         </div>
-        {DEPLOYMENT.tokenAddress && (
+        {dep?.tokenAddress && (
           <div className="flex items-center gap-1">
             <Input placeholder="mUSDC" className="w-24" value={tokAmount} onChange={(e) => setTokAmount(e.target.value)} />
             <Btn variant="ghost" disabled={!!busy || !tokAmount || v.finalized} onClick={act("tok", depositToken)}>Deposit</Btn>
           </div>
         )}
-        {DEPLOYMENT.nftAddress && (
+        {dep?.nftAddress && (
           <Btn variant="ghost" onClick={() => setShowBequest(!showBequest)} disabled={v.finalized}>◈ Bequeath NFT</Btn>
         )}
         <Btn variant="ghost" onClick={() => setShowLetter(!showLetter)} disabled={v.finalized}>✉ Letter</Btn>
         <Btn variant="ghost" onClick={() => setShowGuardian(!showGuardian)} disabled={v.finalized}>⚿ Guardian</Btn>
       </div>
 
-      {showBequest && !v.finalized && DEPLOYMENT.nftAddress && (
+      {showBequest && !v.finalized && dep?.nftAddress && (
         <div className="mt-4 border border-line rounded-lg p-4 bg-panel2">
           <Label>Specific bequest — this NFT goes to this heir, not the split</Label>
           <div className="flex gap-2 flex-wrap">
