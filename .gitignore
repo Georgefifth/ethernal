@@ -6,3 +6,4 @@ cache/
 coverage/
 out/
 demo/*.mp4
+!demo/demo.mp4
