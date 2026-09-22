@@ -6,7 +6,7 @@
 
 **Built with:** `solidity` `ethereum` `hardhat` `ethers.js` `react` `typescript` `vite` `tailwindcss` `web3` `smart-contracts`
 
-**Try it out:** GitHub repo (source + one-command local demo) — *<repo URL>* · demo video `demo/out/demo.mp4` · pitch deck `demo/Ethernal-deck.pdf`
+**Try it out:** https://github.com/Georgefifth/ethernal — source + one-command local demo · demo video `demo/out/demo.mp4` · pitch deck `demo/Ethernal-deck.pdf`
 
 ---
 
