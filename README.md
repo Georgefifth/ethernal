@@ -58,6 +58,8 @@ assets    action =      detected  owner/guardian shares +
 
 **https://georgefifth.github.io/ethernal/** — the frontend hosted on GitHub Pages. The live build connects per-chain: MetaMask on a supported network, or the built-in demo accounts against your own local Hardhat node (the full experience is the 2-minute local demo below — the Pages site alone can't reach your node).
 
+**Demo video:** [`demo/demo.mp4`](demo/demo.mp4) (narrated, ~5 min) · **Pitch deck:** [`demo/Ethernal-deck.pdf`](demo/Ethernal-deck.pdf) · **Screenshots:** [`demo/gallery/`](demo/gallery/)
+
 ## Quickstart
 
 ```bash

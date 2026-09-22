@@ -6,7 +6,11 @@
 
 **Built with:** `solidity` `ethereum` `hardhat` `ethers.js` `react` `typescript` `vite` `tailwindcss` `web3` `smart-contracts`
 
-**Try it out:** https://georgefifth.github.io/ethernal/ (live UI) · https://github.com/Georgefifth/ethernal (source + one-command local demo) · demo video `demo/out/demo.mp4` · pitch deck `demo/Ethernal-deck.pdf`
+**Try it out:** https://georgefifth.github.io/ethernal/ (live UI) · https://github.com/Georgefifth/ethernal (source + one-command local demo)
+
+**Demo video:** https://github.com/Georgefifth/ethernal/blob/main/demo/demo.mp4 (plays inline on GitHub) — direct download: https://github.com/Georgefifth/ethernal/releases/download/v1.0-hackathon/demo.mp4
+
+**Pitch deck:** https://github.com/Georgefifth/ethernal/blob/main/demo/Ethernal-deck.pdf (renders inline on GitHub)
 
 ---
 
